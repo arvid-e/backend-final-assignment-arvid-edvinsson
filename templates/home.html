@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Clone Home</title>
+</head>
+<body>
+    <h1>Twitter clone</h1>
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}!</p>
+        <p><a href="{% url 'tweet_list' %}">View Tweets</a></p>
+        <p><a href="{% url 'tweet_create' %}">Create New Tweet</a></p>
+        <p><a href="{% url 'profile' user.username %}">My Profile</a></p>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a></p>
+        <p><a href="{% url 'admin:index' %}">Admin</a></p>
+    {% endif %}
+</body>
+</html>

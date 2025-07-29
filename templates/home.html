@@ -1,22 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> {# Link to your styles.css #}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> {# Google Fonts link #}
     <title>Twitter Clone Home</title>
 </head>
 <body>
-    <h1>Twitter clone</h1>
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.username }}!</p>
-        <p><a href="{% url 'tweet_list' %}">View Tweets</a></p>
-        <p><a href="{% url 'tweet_create' %}">Create New Tweet</a></p>
-        <p><a href="{% url 'profile' user.username %}">My Profile</a></p>
-        <p><a href="{% url 'logout' %}">Logout</a></p>
-    {% else %}
-        <p><a href="{% url 'login' %}">Login</a></p>
-        <p><a href="{% url 'admin:index' %}">Admin</a></p>
-    {% endif %}
+    <div class="home-container">
+        <h1>Twitter clone</h1>
+
+        {% if user.is_authenticated %}
+            <p>Hello, <span style="color: #1da1f2; font-weight: 700;">{{ user.username }}</span>!</p>
+            <p>What would you like to do today?</p> 
+
+            <div class="app-links"> 
+                <a href="{% url 'tweet_list' %}">View Tweets</a>
+                <a href="{% url 'tweet_create' %}">Create New Tweet</a>
+                <a href="{% url 'profile' user.username %}">My Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        {% else %}
+            <p>Join the conversation or log in to see what's happening.</p> {# Added for context #}
+
+            <div class="auth-links"> {# Grouping unauthenticated user links #}
+                <a href="{% url 'login' %}">Log In</a>
+                <a href="{% url 'signup' %}">Sign Up</a> {# Added signup link for consistency #}
+            </div>
+            {# Removed Admin link from here as it's not typically a user-facing link on a home screen #}
+            <p class="small-link">
+                Or explore as a guest.
+            </p>
+        {% endif %}
+    </div>
 </body>
 </html>

@@ -9,14 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2> {# Changed heading #}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-        </form>
-        <p class="link-text">Don't have an account? <a href="{% url 'account:signup' %}">Sign up here</a></p>
-    </div>
+    <div class="tweets-container">
+        
 </body>
 </html>

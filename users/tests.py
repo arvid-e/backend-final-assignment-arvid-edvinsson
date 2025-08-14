@@ -8,6 +8,7 @@ User = get_user_model()
 class TestSignupView(TestCase):
     def setUp(self):
         self.url = reverse("account:signup")
+        self.initial_user_count = User.objects.count()
 
     def test_success_get(self):
         response = self.client.get(self.url)
@@ -49,3 +50,63 @@ class TestSignupView(TestCase):
         self.assertFalse(User.objects.filter(username=invalid_data["username"]).exists())
         self.assertFalse(form.is_valid())
         self.assertIn("This field is required.", form.errors["username"])
+
+    def test_failure_post_with_empty_email(self):
+        invalid_data = {
+            "username": "tester",
+            "email": "",
+            "password1": "testpassword",
+            "password2": "testpassword",
+        }
+
+        response = self.client.post(self.url, invalid_data)
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.context["form"]
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(User.objects.count(), self.initial_user_count)
+        self.assertIn("This field is required.", form.errors["email"])
+
+    def test_failure_post_with_empty_password(self):
+        invalid_data = {
+            "username": "tester",
+            "email": "tester@tester.com",
+            "password1": "",
+            "password2": "",
+        }
+
+        response = self.client.post(self.url, invalid_data)
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.context["form"]
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(User.objects.count(), self.initial_user_count)
+        self.assertIn("This field is required.", form.errors["password1"])
+        self.assertIn("This field is required.", form.errors["password2"])
+
+    def test_failure_post_with_empty_form(self):
+        invalid_data = {
+            "username": "",
+            "email": "",
+            "password1": "",
+            "password2": "",
+        }
+
+        response = self.client.post(self.url, invalid_data)
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.context["form"]
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(User.objects.count(), self.initial_user_count)
+
+        self.assertIn("This field is required.", form.errors["username"])
+        self.assertIn("This field is required.", form.errors["email"])
+        self.assertIn("This field is required.", form.errors["password1"])
+        self.assertIn("This field is required.", form.errors["password2"])
+

@@ -10,23 +10,31 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('followers', '0001_initial'),
+        ("followers", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='follow',
-            name='followed',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='followers', to=settings.AUTH_USER_MODEL),
+            model_name="follow",
+            name="followed",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="followers",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='follow',
-            name='follower',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='following', to=settings.AUTH_USER_MODEL),
+            model_name="follow",
+            name="follower",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="following",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='follow',
-            unique_together={('follower', 'followed')},
+            name="follow",
+            unique_together={("follower", "followed")},
         ),
     ]

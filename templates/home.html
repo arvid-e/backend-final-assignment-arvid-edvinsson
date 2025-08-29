@@ -25,8 +25,8 @@
             <p>Join the conversation or log in to see what's happening.</p> {# Added for context #}
 
             <div class="auth-links"> {# Grouping unauthenticated user links #}
-                <a href="{% url 'login' %}">Log In</a>
-                <a href="{% url 'signup' %}">Sign Up</a> {# Added signup link for consistency #}
+                <a href="{% url 'account:login' %}">Log In</a>
+                <a href="{% url 'account:signup' %}">Sign Up</a> {# Added signup link for consistency #}
             </div>
             {# Removed Admin link from here as it's not typically a user-facing link on a home screen #}
             <p class="small-link">

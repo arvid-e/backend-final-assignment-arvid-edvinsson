@@ -10,19 +10,27 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('tweets', '0001_initial'),
+        ("tweets", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='tweet',
-            name='likes',
-            field=models.ManyToManyField(blank=True, related_name='liked_tweets', to=settings.AUTH_USER_MODEL),
+            model_name="tweet",
+            name="likes",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="liked_tweets",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='tweet',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tweets', to=settings.AUTH_USER_MODEL),
+            model_name="tweet",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="tweets",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -10,13 +10,13 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2> {# Changed heading #}
+        <h2>Sign Up</h2> {# Changed heading #}
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Login</button>
+            <button type="submit">Register</button>
         </form>
-        <p class="link-text">Don't have an account? <a href="{% url 'account:signup' %}">Sign up here</a></p>
+        <p class="link-text">Already have an account? <a href="{% url 'account:login' %}">Login here</a></p>
     </div>
 </body>
 </html>
